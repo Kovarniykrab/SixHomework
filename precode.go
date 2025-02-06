@@ -72,7 +72,7 @@ func postQuest(w http.ResponseWriter, r *http.Request) {
 	}
 	_, ok := tasks[task.ID]
 	if ok {
-		http.Error(w, "Запрос существует", http.StatusConflict)
+		http.Error(w, "Запрос существует", http.StatusBadRequest)
 		return
 	}
 
