@@ -70,6 +70,11 @@ func postQuest(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	_, ok := tasks[task.ID]
+	if ok {
+		http.Error(w, "Запрос существует", http.StatusConflict)
+		return
+	}
 
 	tasks[task.ID] = task
 
@@ -81,7 +86,7 @@ func getTaskId(w http.ResponseWriter, r *http.Request) {
 
 	task, ok := tasks[id]
 	if !ok {
-		http.Error(w, "Запрос не найден", http.StatusNoContent)
+		http.Error(w, "Запрос не найден", http.StatusBadRequest)
 		return
 	}
 
